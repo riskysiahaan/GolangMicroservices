@@ -8,10 +8,12 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/riskysiahaan/proyek_pasti/pkg/routes"
 )
-
 func main() {
 	r := mux.NewRouter()
 	routes.RegisterTicketsRoutes(r)
+	routes.RegisterPesawatsRoutes(r)
+	routes.RegisterHotelsRoutes(r)
+	routes.RegisterDestsRoutes(r)
 	http.Handle("/", r)
 	fmt.Print("Starting Server localhost:9010")
 	log.Fatal(http.ListenAndServe("localhost:9010", r))

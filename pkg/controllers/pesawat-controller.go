@@ -23,7 +23,7 @@ func GetPesawat(w http.ResponseWriter, r *http.Request) {
 
 func GetPesawatById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	pesawatId := vars["pesawatId"]
+	pesawatId := vars["kode"]
 	Kode, err := strconv.ParseInt(pesawatId, 0, 0)
 	if err != nil {
 	fmt.Println("error while parsing")
@@ -47,7 +47,7 @@ func CreatePesawat(w http.ResponseWriter, r *http.Request) {
 
 func DeletePesawat(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	pesawatId := vars["pesawatId"]
+	pesawatId := vars["kode"]
 	Kode, err := strconv.ParseInt(pesawatId, 0, 0)
 	if err != nil {
 	fmt.Println("error while parsing")
@@ -63,7 +63,7 @@ func UpdatePesawat(w http.ResponseWriter, r *http.Request) {
 	var updatePesawat = &models.Pesawat{}
 	utils.ParseBody(r, updatePesawat)
 	vars := mux.Vars(r)
-	pesawatId := vars["pesawatId"]
+	pesawatId := vars["kode"]
 	Kode, err := strconv.ParseInt(pesawatId, 0, 0)
 	if err != nil {
 	fmt.Println("error while parsing")

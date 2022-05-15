@@ -23,7 +23,7 @@ func GetTicket(w http.ResponseWriter, r *http.Request) {
 
 func GetTicketById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ticketId := vars["ticketId"]
+	ticketId := vars["kode"]
 	Kode, err := strconv.ParseInt(ticketId, 0, 0)
 	if err != nil {
 	fmt.Println("error while parsing")
@@ -47,7 +47,7 @@ func CreateTicket(w http.ResponseWriter, r *http.Request) {
 
 func DeleteTicket(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ticketId := vars["ticketId"]
+	ticketId := vars["kode"]
 	Kode, err := strconv.ParseInt(ticketId, 0, 0)
 	if err != nil {
 	fmt.Println("error while parsing")
@@ -63,7 +63,7 @@ func UpdateTicket(w http.ResponseWriter, r *http.Request) {
 	var updateTicket = &models.Ticket{}
 	utils.ParseBody(r, updateTicket)
 	vars := mux.Vars(r)
-	ticketId := vars["ticketId"]
+	ticketId := vars["kode"]
 	Kode, err := strconv.ParseInt(ticketId, 0, 0)
 	if err != nil {
 	fmt.Println("error while parsing")
