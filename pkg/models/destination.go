@@ -32,13 +32,13 @@ func GetAllDests() []Dest {
 	return Dests
 }
 
-func GetDestbyId(kode int64) (*Dest, *gorm.DB){
+func GetDestbyId(kode string) (*Dest, *gorm.DB){
 	var getDest Dest
 	db := db.Where("Kode=?", kode).Find(&getDest)
 	return &getDest, db
 }
 
-func DeleteDest(kode int64) Dest {
+func DeleteDest(kode string) Dest {
 	var destination Dest
 	db.Where("Kode=?", kode).Delete(destination)
 	return destination

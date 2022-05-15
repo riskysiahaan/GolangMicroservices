@@ -3,6 +3,7 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -23,12 +24,13 @@ func GetTicket(w http.ResponseWriter, r *http.Request) {
 
 func GetTicketById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ticketId := vars["kode"]
-	Kode, err := strconv.ParseInt(ticketId, 0, 0)
+	ticketId := vars["ticketId"]
+	Kode, err := strconv.Atoi(ticketId)
+	log.Println(Kode, err.Error())
 	if err != nil {
 	fmt.Println("error while parsing")
 	}
-	ticketDetails, _ := models.GetTicketbyId(Kode)
+	ticketDetails, _ := models.GetTicketbyId(ticketId)
 	res, _ := json.Marshal(ticketDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -47,12 +49,8 @@ func CreateTicket(w http.ResponseWriter, r *http.Request) {
 
 func DeleteTicket(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	ticketId := vars["kode"]
-	Kode, err := strconv.ParseInt(ticketId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	ticket := models.DeleteTicket(Kode)
+	ticketId := vars["ticketId"]
+	ticket := models.DeleteTicket(ticketId)
 	res, _ := json.Marshal(ticket)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -63,12 +61,8 @@ func UpdateTicket(w http.ResponseWriter, r *http.Request) {
 	var updateTicket = &models.Ticket{}
 	utils.ParseBody(r, updateTicket)
 	vars := mux.Vars(r)
-	ticketId := vars["kode"]
-	Kode, err := strconv.ParseInt(ticketId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	ticketDetails, db := models.GetTicketbyId(Kode)
+	ticketId := vars["ticketId"]
+	ticketDetails, db := models.GetTicketbyId(ticketId)
 	if updateTicket.Nama != "" {
 	ticketDetails.Nama = updateTicket.Nama
 	}

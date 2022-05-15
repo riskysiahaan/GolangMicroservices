@@ -32,13 +32,13 @@ func GetAllPesawats() []Pesawat {
 	return Pesawats
 }
 
-func GetPesawatbyId(kode int64) (*Pesawat, *gorm.DB){
+func GetPesawatbyId(kode string) (*Pesawat, *gorm.DB){
 	var getPesawat Pesawat
 	db := db.Where("Kode=?", kode).Find(&getPesawat)
 	return &getPesawat, db
 }
 
-func DeletePesawat(kode int64) Pesawat {
+func DeletePesawat(kode string) Pesawat {
 	var pesawat Pesawat
 	db.Where("Kode=?", kode).Delete(pesawat)
 	return pesawat

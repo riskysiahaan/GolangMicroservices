@@ -34,13 +34,13 @@ func GetAllHotels() []Hotel {
 	return Hotels
 }
 
-func GetHotelbyId(kode int64) (*Hotel, *gorm.DB){
+func GetHotelbyId(kode string) (*Hotel, *gorm.DB){
 	var getHotel Hotel
 	db := db.Where("Kode=?", kode).Find(&getHotel)
 	return &getHotel, db
 }
 
-func DeleteHotel(kode int64) Hotel {
+func DeleteHotel(kode string) Hotel {
 	var hotel Hotel
 	db.Where("Kode=?", kode).Delete(hotel)
 	return hotel

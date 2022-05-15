@@ -2,9 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/riskysiahaan/proyek_pasti/pkg/models"
@@ -23,12 +21,8 @@ func GetHotel(w http.ResponseWriter, r *http.Request) {
 
 func GetHotelById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	hotelId := vars["kode"]
-	Kode, err := strconv.ParseInt(hotelId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	hotelDetails, _ := models.GetHotelbyId(Kode)
+	hotelId := vars["hotelId"]
+	hotelDetails, _ := models.GetHotelbyId(hotelId)
 	res, _ := json.Marshal(hotelDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -47,12 +41,8 @@ func CreateHotel(w http.ResponseWriter, r *http.Request) {
 
 func DeleteHotel(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	hotelId := vars["kode"]
-	Kode, err := strconv.ParseInt(hotelId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	hotel := models.DeleteHotel(Kode)
+	hotelId := vars["hotelId"]
+	hotel := models.DeleteHotel(hotelId)
 	res, _ := json.Marshal(hotel)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -63,12 +53,8 @@ func UpdateHotel(w http.ResponseWriter, r *http.Request) {
 	var updateHotel = &models.Hotel{}
 	utils.ParseBody(r, updateHotel)
 	vars := mux.Vars(r)
-	hotelId := vars["kode"]
-	Kode, err := strconv.ParseInt(hotelId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	hotelDetails, db := models.GetHotelbyId(Kode)
+	hotelId := vars["hotelId"]
+	hotelDetails, db := models.GetHotelbyId(hotelId)
 	if updateHotel.Nama != "" {
 	hotelDetails.Nama = updateHotel.Nama
 	}

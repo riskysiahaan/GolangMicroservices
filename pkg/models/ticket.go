@@ -10,7 +10,7 @@ var db *gorm.DB
 type Ticket struct {
 	gorm.Model
 	Nama		string	`json:"nama"`
-	Kode 		string 	`json:"kode"`
+	Kode 		string 	`gorm:"" json:"kode"`
 	Harga		string	`json:"harga"`
 	Jenis		string	`json:"jenis"`
 	Jumlah		string	`json:"jumlah"`
@@ -35,13 +35,13 @@ func GetAllTickets() []Ticket {
 	return Tickets
 }
 
-func GetTicketbyId(kode int64) (*Ticket, *gorm.DB){
+func GetTicketbyId(kode string) (*Ticket, *gorm.DB){
 	var getTicket Ticket
 	db := db.Where("Kode=?", kode).Find(&getTicket)
 	return &getTicket, db
 }
 
-func DeleteTicket(kode int64) Ticket {
+func DeleteTicket(kode string) Ticket {
 	var ticket Ticket
 	db.Where("Kode=?", kode).Delete(ticket)
 	return ticket

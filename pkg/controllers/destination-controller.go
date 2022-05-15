@@ -2,9 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/riskysiahaan/proyek_pasti/pkg/models"
@@ -23,12 +21,8 @@ func GetDest(w http.ResponseWriter, r *http.Request) {
 
 func GetDestById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	destinationId := vars["kode"]
-	Kode, err := strconv.ParseInt(destinationId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	destinationDetails, _ := models.GetDestbyId(Kode)
+	destinationId := vars["destinationId"]
+	destinationDetails, _ := models.GetDestbyId(destinationId)
 	res, _ := json.Marshal(destinationDetails)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -47,12 +41,8 @@ func CreateDest(w http.ResponseWriter, r *http.Request) {
 
 func DeleteDest(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	destinationId := vars["kode"]
-	Kode, err := strconv.ParseInt(destinationId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	destination := models.DeleteDest(Kode)
+	destinationId := vars["destinationId"]
+	destination := models.DeleteDest(destinationId)
 	res, _ := json.Marshal(destination)
 	w.Header().Set("Content-Type", "pkglication/json")
 	w.WriteHeader(http.StatusOK)
@@ -63,12 +53,8 @@ func UpdateDest(w http.ResponseWriter, r *http.Request) {
 	var updateDest = &models.Dest{}
 	utils.ParseBody(r, updateDest)
 	vars := mux.Vars(r)
-	destinationId := vars["kode"]
-	Kode, err := strconv.ParseInt(destinationId, 0, 0)
-	if err != nil {
-	fmt.Println("error while parsing")
-	}
-	destinationDetails, db := models.GetDestbyId(Kode)
+	destinationId := vars["destinationId"]
+	destinationDetails, db := models.GetDestbyId(destinationId)
 	if updateDest.Negara != "" {
 	destinationDetails.Negara = updateDest.Negara
 	}
